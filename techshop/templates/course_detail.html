@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.title }} - Course Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#EC4899",
+                        accent: "#10B981",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'course' %}" class="text-3xl font-extrabold text-primary">CourseMaster</a>
+            <a href="{% url 'course' %}" class="text-gray-700 hover:text-secondary transition duration-300">Back to Courses</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-[50vh] flex items-center justify-center bg-gradient-to-r from-primary to-secondary text-white text-center p-6">
+        <div class="animate-fade-in">
+            <h1 class="text-5xl font-extrabold">{{ course.title }}</h1>
+            <p class="mt-4 text-lg">Taught by <span class="font-semibold">{{ course.instructor }}</span></p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12 container mx-auto px-6 lg:flex lg:gap-8">
+        
+        <!-- Left: Course Content -->
+        <div class="lg:w-2/3">
+            <!-- Video Preview -->
+            <div class="bg-white p-6 shadow-lg rounded-lg">
+                <h2 class="text-2xl font-bold text-primary mb-4">Course Preview</h2>
+                <div class="relative w-full h-64 lg:h-80">
+                    <iframe class="w-full h-full rounded-md shadow-md" src="{{ course.video_url }}" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Course Description -->
+            <div class="bg-white p-6 shadow-lg rounded-lg mt-6">
+                <h2 class="text-2xl font-bold text-secondary mb-4">Course Description</h2>
+                <p class="text-gray-700">{{ course.description }}</p>
+            </div>
+
+            <!-- Learning Outcomes -->
+            <div class="bg-white p-6 shadow-lg rounded-lg mt-6">
+                <h2 class="text-2xl font-bold text-accent mb-4">What You’ll Learn</h2>
+                <ul class="list-disc ml-6 text-gray-700">
+                    {% for point in course.learning_points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if is_enrolled %}
+            <div class="bg-white p-6 shadow-lg rounded-lg mt-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Course Lessons</h2>
+                <ul class="space-y-4">
+                    {% for lesson in course.lessons.all %}
+                    <li class="bg-gray-100 p-4 rounded-lg shadow-md hover:bg-blue-100 transition duration-300">
+                        <a href="{% url "lesson_detail" lesson.id  %}" class="text-lg font-semibold text-blue-600">
+                            {{ lesson.title }}
+                        </a>
+                    </li>
+                    {% empty %}
+                    <p class="text-gray-500">No lessons available yet.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <div class="text-center mt-6">
+                <p class="text-gray-600 italic">You must enroll to access the lessons.</p>
+            </div>
+            {% endif %}
+            </div>
+
+        <!-- Right: Course Sidebar -->
+        <div class="lg:w-1/3 mt-6 lg:mt-0">
+            <div class="bg-white p-6 shadow-lg rounded-lg">
+                <h2 class="text-2xl font-bold text-primary">Course Details</h2>
+                <ul class="mt-4 text-gray-700">
+                    <li class="flex justify-between border-b py-2"><span>Category:</span> <span class="font-semibold">{{ course.category }}</span></li>
+                    <li class="flex justify-between border-b py-2"><span>Duration:</span> <span class="font-semibold">{{ course.duration }}</span></li>
+                    <li class="flex justify-between border-b py-2"><span>Level:</span> <span class="font-semibold">{{ course.level }}</span></li>
+                    <li class="flex justify-between border-b py-2"><span>Price:</span> <span class="font-semibold text-secondary">${{ course.price }}</span></li>
+                    <li class="flex justify-between border-b py-2"><span>Rating:</span> ⭐⭐⭐⭐⭐ ({{ course.rating }}/5)</li>
+                </ul>
+                {% if not is_enrolled %}
+        <div class="text-center">
+            <a href="{% url 'enroll_in_course' course.id %}" class="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition duration-300">
+                Enroll in Course
+            </a>
+        </div>
+        {% endif %}
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

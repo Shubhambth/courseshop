@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Course - Learn Anything, Anytime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#EC4899",
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Include Typewriter.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typewriter-effect@latest/dist/core.js"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-3xl font-extrabold text-primary">CourseMaster</a>
+            <button id="menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                ☰
+            </button>
+            <ul id="menu" class="hidden md:flex space-x-6">
+                <li><a href="/" class="text-gray-700 hover:text-secondary transition duration-300">Home</a></li>
+                <li><a href="{% url "course" %}" class="text-gray-700 hover:text-secondary transition duration-300">Courses</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-secondary transition duration-300">About</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-secondary transition duration-300">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url "logout" %}" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-secondary transition duration-300">
+                        Logout
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url "login" %}" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-secondary transition duration-300">
+                        Login
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url "signup" %}" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-secondary transition duration-300">
+                        SignUp
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden bg-white shadow-md absolute top-16 left-0 w-full text-center">
+            <a href="#" class="block py-3 text-gray-700 hover:text-secondary transition duration-300">Home</a>
+            <a href="#" class="block py-3 text-gray-700 hover:text-secondary transition duration-300">Courses</a>
+            <a href="#" class="block py-3 text-gray-700 hover:text-secondary transition duration-300">About</a>
+            <a href="#" class="block py-3 text-gray-700 hover:text-secondary transition duration-300">Contact</a>
+            {% if user.is_authenticated %}
+            <a href="{% url "logout" %}" class="block py-3 bg-primary text-white hover:bg-secondary transition duration-300">Logout</a>
+            {% else %}
+            <a href="{% url "login" %}" class="block py-3 bg-primary text-white hover:bg-secondary transition duration-300">Login</a>
+            <a href="{% url "signup" %}" class="block py-3 bg-primary text-white hover:bg-secondary transition duration-300">SignUp</a>
+            {% endif %}
+
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary text-white text-center p-6">
+        <h1 class="text-4xl md:text-5xl font-extrabold">
+            <span id="typewriter"></span>
+        </h1>
+        <p class="mt-4 text-lg">Join millions of learners worldwide.</p>
+        <a href="#" class="mt-6 inline-block bg-white text-primary px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition duration-300 animate-bounce">
+            Get Started
+        </a>
+    </header>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Why Choose Us?</h2>
+            <div class="grid md:grid-cols-3 gap-8 px-4">
+                <div class="p-6 bg-white shadow-lg rounded-md transform hover:scale-105 transition duration-300">
+                    <h3 class="text-2xl font-semibold text-primary">👨‍🏫 Expert Instructors</h3>
+                    <p class="mt-2 text-gray-600">Learn from industry professionals.</p>
+                </div>
+                <div class="p-6 bg-white shadow-lg rounded-md transform hover:scale-105 transition duration-300">
+                    <h3 class="text-2xl font-semibold text-secondary">📚 Flexible Learning</h3>
+                    <p class="mt-2 text-gray-600">Study at your own pace.</p>
+                </div>
+                <div class="p-6 bg-white shadow-lg rounded-md transform hover:scale-105 transition duration-300">
+                    <h3 class="text-2xl font-semibold text-primary">🎓 Certification</h3>
+                    <p class="mt-2 text-gray-600">Earn certificates upon completion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Start Learning Today!</h2>
+        <p class="mt-4 text-lg text-gray-600">Join thousands of students in your journey to success.</p>
+        <a href="#" class="mt-6 inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary transition duration-300">
+            Join Now
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-6">
+        <p>&copy; 2025 CourseMaster. All rights reserved.</p>
+    </footer>
+
+    <!-- Typewriter Effect Script -->
+    <script>
+        var typewriter = new Typewriter('#typewriter', {
+            loop: true,
+            delay: 75,
+        });
+
+        typewriter
+            .typeString('Learn Anytime, Anywhere')
+            .pauseFor(2000)
+            .deleteAll()
+            .typeString('Boost Your Career With Online Courses')
+            .pauseFor(2000)
+            .deleteAll()
+            .typeString('Join Millions of Students Worldwide')
+            .pauseFor(2000)
+            .deleteAll()
+            .start();
+    </script>
+
+    <!-- Mobile Navbar Toggle Script -->
+    <script>
+        document.getElementById("menu-btn").addEventListener("click", function () {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+    </script>
+
+</body>
+</html>

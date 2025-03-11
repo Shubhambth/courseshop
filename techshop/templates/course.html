@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Learn With Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#EC4899",
+                        accent: "#10B981",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Typing animation */
+        .typing::after {
+            content: "|";
+            display: inline-block;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-3xl font-extrabold text-primary">CourseMaster</a>
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="#" class="text-gray-700 hover:text-secondary transition duration-300">Home</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-secondary transition duration-300">Courses</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-secondary transition duration-300">About</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-secondary transition duration-300">Contact</a></li>
+                <li>
+                    <a href="#" class="bg-primary text-white px-5 py-2 rounded-lg hover:bg-secondary transition duration-300">
+                        Login
+                    </a>
+                </li>
+            </ul>
+            <button id="menu-btn" class="md:hidden text-gray-700 text-2xl">&#9776;</button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white p-4 shadow-md absolute top-16 left-0 w-full">
+            <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Home</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Courses</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-secondary">About</a>
+            <a href="#" class="block py-2 text-gray-700 hover:text-secondary">Contact</a>
+            <a href="#" class="block py-2 bg-primary text-white text-center rounded-md hover:bg-secondary">Login</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-[60vh] flex items-center justify-center bg-gradient-to-r from-primary to-secondary text-white text-center p-6">
+        <div>
+            <h1 class="text-5xl font-extrabold"><span class="typing"></span></h1>
+            <p class="mt-4 text-lg">Upskill yourself with the best courses online</p>
+            <a href="#" class="mt-6 inline-block bg-white text-primary px-6 py-3 rounded-md font-semibold hover:bg-gray-200 transition duration-300">
+                Start Learning
+            </a>
+        </div>
+    </header>
+
+    <!-- Course Categories -->
+    <section class="py-12">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-8">Categories</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-secondary transition duration-300">Web Development</button>
+                <button class="bg-secondary text-white px-4 py-2 rounded-full hover:bg-primary transition duration-300">Data Science</button>
+                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-primary transition duration-300">Marketing</button>
+                <button class="bg-gray-700 text-white px-4 py-2 rounded-full hover:bg-secondary transition duration-300">Design</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Grid -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-gray-800 text-center mb-8">Popular Courses</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for course in data %}
+                <a href="{% url 'course_detail' course.slug %}" class="block">
+                    <div class="p-6 bg-white shadow-lg rounded-md transform hover:scale-105 transition duration-300">
+                        <img src="https://picsum.photos/200/150" alt="Course" class="w-full rounded-md">
+                        <h3 class="text-2xl font-semibold text-accent mt-4">{{ course.title }}</h3>
+                        <p class="text-gray-600 mt-2">{{ course.description|truncatewords:20 }}</p>
+                        <button class="mt-4 bg-accent text-white px-4 py-2 rounded-md hover:bg-primary transition duration-300">
+                            Learn More
+                        </button>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-8">What Our Students Say</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-6 bg-gray-50 shadow-lg rounded-md">
+                    <p class="text-gray-700 italic">"This platform changed my career! The courses are well-structured and engaging."</p>
+                    <h4 class="text-primary font-bold mt-4">- John Doe</h4>
+                </div>
+                <div class="p-6 bg-gray-50 shadow-lg rounded-md">
+                    <p class="text-gray-700 italic">"I loved the interactive lessons and real-world projects. Highly recommend!"</p>
+                    <h4 class="text-secondary font-bold mt-4">- Sarah Smith</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white text-center py-6">
+        <p>&copy; 2025 CourseMaster. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Typing Animation -->
+    <script>
+        const words = ["Explore Our Courses", "Upgrade Your Skills", "Learn from Experts"];
+        let i = 0, j = 0, currentWord = "", isDeleting = false;
+
+        function type() {
+            currentWord = words[i].substring(0, j);
+            document.querySelector(".typing").textContent = currentWord;
+
+            if (!isDeleting && j < words[i].length) {
+                j++;
+                setTimeout(type, 100);
+            } else if (isDeleting && j > 0) {
+                j--;
+                setTimeout(type, 50);
+            } else {
+                isDeleting = !isDeleting;
+                i = !isDeleting ? (i + 1) % words.length : i;
+                setTimeout(type, 1000);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", type);
+
+        // Mobile menu toggle
+        document.getElementById("menu-btn").addEventListener("click", () => {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+    </script>
+
+</body>
+</html>
