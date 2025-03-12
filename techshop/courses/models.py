@@ -1,6 +1,7 @@
 from django.db import models
 from main.models import CustomUser
 from django.utils.text import slugify
+from django_ckeditor_5.fields import CKEditor5Field
 
 
     
@@ -8,7 +9,7 @@ class Course(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     instructor = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    description = models.TextField()
+    description = CKEditor5Field('Text', config_name='extends')
     duration = models.CharField(max_length=50)
     level = models.CharField(max_length=50, choices=[("Beginner", "Beginner"), ("Intermediate", "Intermediate"), ("Advanced", "Advanced")])
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
@@ -30,11 +31,11 @@ class Course(models.Model):
 class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     title = models.CharField(max_length=255)
-    content = models.TextField()  # Lesson details (could be HTML)
+    content = CKEditor5Field('Text', config_name='extends')  # Lesson details (could be HTML)
     video_url = models.URLField(blank=True, null=True)  # Optional video link
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
+    class Meta: 
         ordering = ["id"] 
 
     def __str__(self):
