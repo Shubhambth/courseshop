@@ -1,13 +1,13 @@
 {
     "builds": [{
-      "src": "techshop/techshop/wsgi.py",
+      "src": "techshop/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
     }],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "techshop/techshop/wsgi.py"
+        "dest": "techshop/wsgi.py"
       }
     ]
 
