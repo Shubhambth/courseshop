@@ -64,13 +64,28 @@ WSGI_APPLICATION = 'techshop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+#postgresql://postgres:@shinkansen.proxy.rlwy.net:34052/railway
+
+
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'uoIFpWQQmMWVgSaqnLHLRSTwPDOANauE',
+        'HOST': 'shinkansen.proxy.rlwy.net',
+        'PORT': '34052',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
