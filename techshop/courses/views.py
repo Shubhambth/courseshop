@@ -2,6 +2,7 @@ from django.shortcuts import render , get_object_or_404 , redirect
 from .models import Course , Enrollment , Lesson
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from payments.models import Payment
 
 
 def course(request):
@@ -37,6 +38,11 @@ def lesson_detail(request, lesson_id):
 
     # Get all lessons for the same course, ordered by ID
     lessons = list(lesson.course.lessons.order_by("id"))
+
+    has_paid = Payment.objects.filter(user=request.user, course=lesson.course, status="COMPLETED").exists()
+
+    if not has_paid:
+        return redirect('course_detail', slug=lesson.course.slug)
 
     # Find the index of the current lesson
     current_index = lessons.index(lesson) if lesson in lessons else -1
