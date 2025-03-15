@@ -96,7 +96,7 @@
                     <li class="flex justify-between border-b py-2"><span>Category:</span> <span class="font-semibold">{{ course.category }}</span></li>
                     <li class="flex justify-between border-b py-2"><span>Duration:</span> <span class="font-semibold">{{ course.duration }}</span></li>
                     <li class="flex justify-between border-b py-2"><span>Level:</span> <span class="font-semibold">{{ course.level }}</span></li>
-                    <li class="flex justify-between border-b py-2"><span>Price:</span> <span class="font-semibold text-secondary">${{ course.price }}</span></li>
+                    <li class="flex justify-between border-b py-2"><span>Price:</span> <span class="font-semibold text-secondary">₹{{ course.price }}</span></li>
                     <li class="flex justify-between border-b py-2"><span>Rating:</span> ⭐⭐⭐⭐⭐ ({{ course.rating }}/5)</li>
                 </ul>
                 {% if not is_enrolled %}
